@@ -14,7 +14,7 @@ class RegistroUsuario(CreateView):
     model = User
     template_name = 'registration/registrar.html'
     form_class = RegistroForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('registrar')
 
 @login_required()
 def index(request):
@@ -28,6 +28,6 @@ def registroAlumno(request):
 def AdministradorArchivo(request):
 	return render(request, 'AdministradorArchivo.html')
 
-@login_required()
-def registrar(request):
-	return render(request, 'registrar.html')
+# @login_required()
+# def registrar(request):
+# 	return render(request, 'registrar.html')
