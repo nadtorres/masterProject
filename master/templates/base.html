@@ -1,0 +1,86 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+
+	<!-- Bootstrap CSS -->
+  <head>
+      <title> Magister</title>
+      <meta charset="utf-8">
+      <link rel="icon" type="image/png" href="https://nave13.ucv.cl/imagen/favicon.png">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    </head>
+ 
+<body>
+    <nav class="navbar nav navbar-dark bg-primary" >
+
+        {% if user.is_authenticated %}
+    
+        <ul class="nav nav-pills navbar-left">
+            <li class="nav-item active">
+              <a href=#>Navegador Magister</a>
+            </li>
+        </ul> 
+
+        <ul class="nav nav-pills navbar-left">
+          <li class="nav-item active">
+            <a href=#> Welcome {{ user.username }}</a>
+          </li>
+        </ul>
+
+        <ul class="nav nav-pills navbar-left">
+          <li class="nav-item active">
+            <a href="{% url 'AdministradorArchivo' %}"> Administrador Archivos</a>
+          </li>
+        </ul>        
+          
+        
+        <ul class="nav nav-pills navbar-right">
+          <li class="nav-item active">
+            <a href="{% url 'login' %}" >Logout</a>
+          </li>
+        </ul>
+    
+        {% else %}
+        
+        <ul class="nav nav-pills navbar-right">
+          <li class="nav-item active">
+            <a href="{% url 'login' %}">Login</a>
+          </li>
+        </ul>
+    
+        {% endif %}
+    
+        {% if request.user.is_staff %}
+    
+        <ul class="nav nav-pills navbar-left">
+          <li class="nav-item active">
+            <a href="{% url 'registroAlumno' %}">Administrador Alumnos</a>
+          </li>
+        </ul>
+
+        <ul class="nav nav-pills navbar-left">
+            <li class="nav-item active">
+              <a href="{% url 'registrar' %}">Usuarios</a>
+            </li>
+          </ul>
+    
+        {% endif %}
+		
+
+{% block extrastatic %}
+{% endblock %}
+
+{% block content %} {% endblock %}
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" 
+			integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" 
+			crossorigin="anonymous">
+	</script>
+</body>
+</html>

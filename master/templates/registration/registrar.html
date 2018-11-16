@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    <title>Registrar</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form">
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto">
+                    <form method="post">
+                        {% csrf_token %} {{ form.as_p }}
+                        <div class="tile-footer">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-3">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-fw fa-lg fa-check-circle"></i>Register</button>&nbsp;&nbsp;
+                                    <a class="btn btn-primary" href="{% url 'login' %}">
+                                        <i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+<!--   
+                        <div>
+                            <h3 class="tile-title">Listado de Usuarios</h3>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <center>Titulo</center>
+                                            </th>
+                                            <th>
+                                                <center>Descripcion</center>
+                                            </th>
+                                            <th>
+                                                <center>Estado</center>
+                                            </th>
+                                            <th>
+                                                <center>Fecha de inicio</center>
+                                            </th>
+                                            <th>
+                                                <center>Fecha de termino</center>
+                                            </th>
+                                            <th>
+                                                <center>Acciones </center>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for t in tareas %}
+                                        <tr>
+                                            <td>
+                                                <center>{{ t.titulo }}</center>
+                                            </td>
+                                            <td>
+                                                <center>{{ t.descripcion }}</center>
+                                            </td>
+                                            <td>
+                                                <center>{{ t.estadoTarea }}</center>
+                                            </td>
+                                            <td>
+                                                <center>{{ t.fechaInicio }}</center>
+                                            </td>
+                                            <td>
+                                                <center>{{ t.fechaTermino }}</center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <a href="{% url 'detalles_tarea' t.pk %}" class="btn btn-info">
+                                                        Detalles
+                                                    </a> /
+                                                    <a href="{% url 'editar_tarea' t.pk %}" class="btn btn-primary">
+                                                        Editar
+                                                    </a> /
+                                                    <a href="{% url 'eliminar_tarea' t.pk %}" class="btn btn-danger">
+                                                        Eliminar
+                                                    </a>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+     -->
+
+{% endblock %}
