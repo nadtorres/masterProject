@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ 
+</head> 
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well">
+                <form class="form-horizontal" method="post">
+                    <fieldset>
+                        <legend class="text-center header">Registro Alumnos </legend>
+                        <div class="form-control" color="black">
+                            <form class="form" method="post">
+                                {% csrf_token %} {{ form.as_p }}
+                                <div class="tile-footer">
+                                    <div class="form-group">
+                                        <div class="col-md-8 col-md-offset-3">
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="fa fa-fw fa-lg fa-check-circle"></i>Register</button>&nbsp;&nbsp;
+                                                <a class="btn btn-primary" href="{% url 'registroAlumno' %}">
+                                                    <i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</a>
+                                            </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

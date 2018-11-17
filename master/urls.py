@@ -7,10 +7,13 @@ urlpatterns = [
     path('login', auth_views.LoginView.as_view(), name='login'),
     path('logout', auth_views.LogoutView.as_view(), name='logout'),
     path('home', views.index, name='home'),
-    path('registroAlumno', staff_member_required(views.registroAlumno), name='registroAlumno'),
-    # path('registrar', staff_member_required(views.registrar), name='registrar'),
-    path('AdministradorArchivo', views.AdministradorArchivo, name='AdministradorArchivo'),
+    # path('Archivo', views.Archivo, name='Archivo'),
     path('registrar', views.RegistroUsuario.as_view(), name='registrar'),
+    path('registroAlumno', views.registroAlumno.as_view(), name='registroAlumno'),
+    path('Usuarios', views.User, name='Usuarios'),
+    # path('registroAlumno', views.registroAlumno, name='registroAlumno'),
+
+
 
 
 ]

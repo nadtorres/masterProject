@@ -49,10 +49,10 @@
                                     <thead>
                                         <tr>
                                             <th>
-                                                <center>Titulo</center>
+                                                <center>Nombre de Usuario</center>
                                             </th>
                                             <th>
-                                                <center>Descripcion</center>
+                                                <center>Nombre</center>
                                             </th>
                                             <th>
                                                 <center>Estado</center>
@@ -69,13 +69,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for t in tareas %}
+                                        {% for u in User %}
                                         <tr>
                                             <td>
-                                                <center>{{ t.titulo }}</center>
+                                                <center>{{ u.username }}</center>
                                             </td>
                                             <td>
-                                                <center>{{ t.descripcion }}</center>
+                                                <center>{{ u.firs_name }}</center>
                                             </td>
                                             <td>
                                                 <center>{{ t.estadoTarea }}</center>

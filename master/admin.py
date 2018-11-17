@@ -5,4 +5,4 @@ from .models import *
 admin.site.site_header="Master Project"
 admin.site.site_title="Master Project"
 
-admin.site.register(registrar)
+admin.site.register(Alumno)
