@@ -2,13 +2,18 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
-from .models import User, Alumno
-from .forms import RegistroForm, AlumnoForm
+from .models import User, Alumno, Profesor
+from .forms import RegistroForm, AlumnoForm, ProfesorForm
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, ListView
 
 
 # Create your views here.
+
+
+@login_required()
+def index(request):
+    return render(request, 'home.html')
 
 class RegistroUsuario(CreateView):
     model = User
@@ -22,36 +27,24 @@ class registroAlumno(CreateView):
     form_class = AlumnoForm
     success_url = reverse_lazy('registroAlumno')
 
-@login_required()
-def index(request):
-    return render(request, 'home.html')
+class UsuariosList(ListView):
+    model = User
+    template_name = 'UsuariosList.html'
+    form_class = RegistroForm
+    success_url = reverse_lazy('UsuariosList')
 
-# @login_required()
-# def registroAlumno(request):
-# 	return render(request, 'registroAlumno.html')
+# CLASES Y FUNCIONES DE PROFESORES
 
-# @login_required()
-# def AdministradorArchivo(request):
-# 	return render(request, 'AdministradorArchivo.html')
+class registroProfesor(CreateView):
+    model = Profesor
+    template_name = 'registroProfesor.html'
+    form_class = ProfesorForm
+    success_url = reverse_lazy('registroProfesor')
 
-# @login_required()
-# def registrar(request):
-# 	return render(request, 'registrar.html')
-
-# @login_required()
-# def registroAlum(request):
-#     if request.method == 'POST':
-#         alumno = Alumno()
-#         alumno.nombre = request.POST.get('Nombre')
-#         alumno.apellido_pat = request.POST.get('Apellido_pat')
-#         alumno.apellido_mat = request.POST.get('apellido_mat')
-        # alumno.fechaIngreso= request.POST.get('fechaIngreso')
+class DocenteList(ListView):
+    model = Profesor
+    template_name = 'DocenteList.html'
+    form_class = ProfesorForm
+    success_url = reverse_lazy('DocenteList')
 
 
-        # tarea.usuario = request.user
-        # tarea.fechaInicio = time.strftime("%Y-%m-%d")
-        # tarea.fechaTermino = request.POST.get('fechaTermino')
-        # tarea.estadoTarea = EstadoTarea.objects.get(pk=request.POST.get('estadoT'))
-        # tarea.tipoTarea = TipoTarea.objects.get(pk=request.POST.get('tipoTarea'))
-    #     alumno.save()
-    # return redirect('registroAlumno')

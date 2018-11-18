@@ -1,7 +1,7 @@
 from django  import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Alumno
+from .models import Alumno, Profesor
 
 class RegistroForm(UserCreationForm):
     class Meta:
@@ -56,4 +56,30 @@ class AlumnoForm(forms.ModelForm):
             'creditos': 'Ingrese cantidad de créditos',
             'universidadProcedencia': 'Universidad de Procedencia',
             'estadoMatricula': 'Seleccione Estado de Matrícula'
+        }
+
+class ProfesorForm(forms.ModelForm):
+    class Meta:
+        model = Profesor
+        fields = [
+            'nombre',
+            'apellido_pat',
+            'apellido_mat',
+            'rut',
+            'sexo',
+            'telefono',
+            'direccion',
+            'profesion',
+            'cursosImpartados'
+        ]
+        labels = {
+            'nombre': 'Nombre de Docente',
+            'apellido_pat': 'Apellido Paterno',
+            'apellido_mat': 'Apellido Materno',
+            'rut': 'RUT',
+            'sexo': 'Seleccione Sexo',
+            'telefono': 'Teléfono',
+            'direccion': 'Dirección',
+            'profesion': 'Ingrese profesión del Docente',
+            'cursosImpartados': 'Seleccione cursos que imparte el Docente'
         }
