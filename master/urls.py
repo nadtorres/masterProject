@@ -14,6 +14,13 @@ urlpatterns = [
     path('registrar', views.RegistroUsuario.as_view(), name='registrar'),
     path('Usuarios', views.User, name='Usuarios'),
     path('UsuariosList', views.UsuariosList.as_view(), name='UsuariosList'),
+    path('UsuariosList', views.UsuariosDelete.as_view(), name='UsuariosDelete'),
+    # path('eliminarUsuario', views.Usuario_eliminar, name='eliminarUsuario'),
+    # path('registrar', views.UsuariosUpdate.as_view(), name='UsuariosUpdate'),
+    path('<int:pk>', views.UsuarioDelete.as_view(), name='eliminar_usuario'),
+    path('editartarea/<int:pk>', views.actualizarUsuario, name='editar_usuario'),
+
+
 
 # >>>>>>>>>>>>>>>>>>>>>>>>> URL DE ALUMNO <<<<<<<<<<<<<<<<<<<<<<<<<<<
     path('registroAlumno', views.registroAlumno.as_view(), name='registroAlumno'),
@@ -22,6 +29,7 @@ urlpatterns = [
 
     path('registroProfesor', views.registroProfesor.as_view(), name='registroProfesor'),
     path('DocenteList', views.DocenteList.as_view(), name='DocenteList'),
+
 
 
 
