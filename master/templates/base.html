@@ -19,16 +19,21 @@
     
         <ul class="nav nav-pills navbar-left">
             <li class="nav-item active">
-              <a href=#>Navegador Magister</a>
+              <a href="{% url 'home' %}">Navegador Magister</a>
             </li>
         </ul> 
 
         <ul class="nav nav-pills navbar-left">
           <li class="nav-item active">
-            <a href=#> Welcome {{ user.username }}</a>
+            <a href="{% url 'home' %}"> Welcome {{ user.username }}</a>
           </li>
         </ul>
 
+        <ul class="nav nav-pills navbar-left">
+          <li class="nav-item active">
+            <a href="{% url 'upload' %}"> Subir Archivos</a>
+          </li>
+        </ul>
     
         
         <ul class="nav nav-pills navbar-right">

@@ -30,7 +30,8 @@ urlpatterns = [
     path('registroProfesor', views.registroProfesor.as_view(), name='registroProfesor'),
     path('DocenteList', views.DocenteList.as_view(), name='DocenteList'),
 
+# >>>>>>>>>>>>>>>>>>>>>>>>>> URL DE SUBIR ARCHIVOS <<<<<<<<<<<<<<<<<<<<<<<<<<
 
-
+    path('upload', views.upload_file, name="upload"),
 
 ]

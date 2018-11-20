@@ -83,3 +83,10 @@ class ProfesorForm(forms.ModelForm):
             'profesion': 'Ingrese profesión del Docente',
             'cursosImpartados': 'Seleccione cursos que imparte el Docente'
         }
+
+ 
+class UploadForm(forms.Form):
+ filename = forms.CharField(max_length=100)
+ docfile = forms.FileField(
+        label='Selecciona un archivo'
+    )

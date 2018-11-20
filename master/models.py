@@ -60,3 +60,8 @@ class Profesor(models.Model):
 
 	def __str__(self):
 	    return "%s" % self.nombre
+
+
+class Document(models.Model):
+	filename = models.CharField(max_length=100)
+	docfile = models.FileField(upload_to='documents/%Y/%m/%d')
