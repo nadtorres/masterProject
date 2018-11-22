@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+<html>
+<body>
+<div class="container-fluid">
+    <div class="crow">
  <table class="table table-bordered">
     <thead>
         <tr>
@@ -14,7 +18,7 @@
             <td>Acciones</td>
         </tr>
     </thead>
-    <tbody>
+ 
         {% if object_list %}
         {% for user in object_list%}
         <tr>    
@@ -38,7 +42,9 @@
         {% else %}
         <h1>No hay registros</h1>
         {% endif %}
-    </tbody>
- </table>
-
+    </table>
+</div>
+ </div>
+</body>
+</html>
  {% endblock %}

@@ -68,12 +68,14 @@ class UsuarioDelete(DeleteView):
     template_name = 'eliminarUsuario.html'
     success_url = reverse_lazy('UsuariosList')
 
-
+@method_decorator(login_required, name='get')
 class registroAlumno(CreateView):
     model = Alumno
     template_name = 'registroAlumno.html'
     form_class = AlumnoForm
     success_url = reverse_lazy('registroAlumno')
+    def get_queryset(self, *args, **kwargs):
+        return Alumno.objects.filter(user=request.user)
 
 
 # CLASES Y FUNCIONES DE PROFESORES
@@ -99,7 +101,7 @@ def upload_file(request):
         if form.is_valid():
         	newdoc = Document(filename = request.POST['filename'],docfile = request.FILES['docfile'])
         	newdoc.save(form)
-        	return redirect("uploads")
+        	return redirect("upload")
     else:
         form = UploadForm()
     #tambien se puede utilizar render_to_response

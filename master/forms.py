@@ -16,12 +16,12 @@ class RegistroForm(UserCreationForm):
             'is_staff'
         ]
         labels = {
-            'username': 'Nombre de usuario',
+            'username': '* Nombre de usuario',
             'first_name': 'Nombre',
             'last_name': 'Apellidos',
-            'email': 'Email',
+            'email': '* Email',
+            'password': '* Contraseña',
             
-
         }
 
 class AlumnoForm(forms.ModelForm):

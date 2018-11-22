@@ -15,7 +15,6 @@
     <div class="row">
         <div class="col-md-12">
             <div class="well">
-                <form class="form-horizontal" method="post">
                     <fieldset>
                         <legend class="text-center header">Registro Usuarios </legend>
                         <div class="form-control" color="black">
@@ -34,25 +33,16 @@
                             </form>
                         </div>
                     </fieldset>
-                </form>
             </div>
         </div>
     </div>
 </div>
 
-</html>
 <div class="container">
-    <div class="rox">
-        <div class="col-md-12">
-            <div class="well">
                 <div form class="form-horizontal" method="get">
                     <button class="btn btn-primary" type="submit">
                         <a class="btn btn-primary" href="{% url 'UsuariosList' %}">Ver Usuarios</a>
-                            <a class="btn btn-primary" href="{% url 'registrar' %}">
-                            <i class="fa fa-fw fa-lg fa-times-circle"></i>Subir Documento</a>
                 </div>
-            </div>
-        </div>
-    </div>
 </div>
+</html>
 {% endblock %}

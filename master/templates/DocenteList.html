@@ -1,39 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-
- <table class="table table-bordered">
-    <thead>
-        <tr>
-            <td>Nombre</td>
-            <td>Apellido Paterno</td>
-            <td>Apellido Materno</td>
-            <td>Rut</td>
-            <td>Sexo</td>
-            <td>Teléfono</td>
-            <td>Dirección</td>
-            <td>Profesión</td>
-            <td>Cursos Impartados</td>
-        </tr>
-    </thead>
-    <tbody>
-        {% if object_list %}
-        {% for profesor in object_list%}
-        <tr>    
-            <td>{{ profesor.nombre }}</td>
-            <td>{{ profesor.apellido_pat }}</td>
-            <td>{{ profesor.apellido_mat }}</td>
-            <td>{{ profesor.sexo }}</td>
-            <td>{{ profesor.telefono }}</td>
-            <td>{{ profesor.direccion }}</td>
-            <td>{{ profesor.profesion }}</td>
-            <td>{{ profesor.cursosImpartados }}</td>
-        </tr>
-        {% endfor %}
-        {% else %}
-        <h1>No hay registros</h1>
-        {% endif %}
-    </tbody>
- </table>
-
+<div class="container-fluid">
+    <div class="crow">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>Nombre</td>
+                    <td>Apellido Paterno</td>
+                    <td>Apellido Materno</td>
+                    <td>Rut</td>
+                    <td>Sexo</td>
+                    <td>Teléfono</td>
+                    <td>Dirección</td>
+                    <td>Profesión</td>
+                    <td>Cursos Impartados</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% if object_list %}
+                {% for profesor in object_list%}
+                <tr>    
+                    <td>{{ profesor.nombre }}</td>
+                    <td>{{ profesor.apellido_pat }}</td>
+                    <td>{{ profesor.apellido_mat }}</td>
+                    <td>{{ profesor.sexo }}</td>
+                    <td>{{ profesor.telefono }}</td>
+                    <td>{{ profesor.direccion }}</td>
+                    <td>{{ profesor.profesion }}</td>
+                    <td>{{ profesor.cursosImpartados }}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <h1>No hay registros</h1>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
  {% endblock %}
