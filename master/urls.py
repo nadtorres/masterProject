@@ -24,6 +24,8 @@ urlpatterns = [
 
 # >>>>>>>>>>>>>>>>>>>>>>>>> URL DE ALUMNO <<<<<<<<<<<<<<<<<<<<<<<<<<<
     path('registroAlumno', views.registroAlumno.as_view(), name='registroAlumno'),
+    path('alumnosList', views.alumnosList.as_view(), name='alumnosList'),
+
     
 # >>>>>>>>>>>>>>>>>>>>>>>>>> URL DE PROFESOR <<<<<<<<<<<<<<<<<<<<<<<<<<
 

@@ -1,50 +1,52 @@
 {% extends "base.html" %}
 
 {% block content %}
-<html>
-<body>
+
 <div class="container-fluid">
     <div class="crow">
- <table class="table table-bordered">
-    <thead>
-        <tr>
-            <td>#</td>
-            <td>Nombre de Usuario</td>
-            <td>Nombre</td>
-            <td>Apellidos</td>
-            <td>Email</td>
-            <td>Usuario Activo</td>
-            <td>Usuario Administrador</td>
-            <td>Acciones</td>
-        </tr>
-    </thead>
- 
-        {% if object_list %}
-        {% for user in object_list%}
-        <tr>    
-            <td>{{ user.id }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.first_name}}</td>
-            <td>{{ user.last_name }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.is_active}}</td>
-            <td>{{ user.is_staff}}</td>
-            <td>
-                <a href="{% url 'editar_usuario' user.pk %}" class="btn btn-success">
-                    Editar
-                </a>
-                <a href="{% url 'eliminar_usuario' user.pk%}" class="btn btn-danger">
-                    Eliminar
-                </a>
-            </td>
-        </tr>
-        {% endfor %}
-        {% else %}
-        <h1>No hay registros</h1>
-        {% endif %}
-    </table>
-</div>
+         <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Nombre de Usuario</td>
+                    <td>Nombre</td>
+                    <td>Apellidos</td>
+                    <td>Email</td>
+                    <td>Usuario Activo</td>
+                    <td>Usuario Administrador</td>
+                    <td>Acciones</td>
+                </tr>
+            </thead>
+        
+                {% if object_list %}
+                {% for user in object_list%}
+                <tr>    
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.first_name}}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.is_active}}</td>
+                    <td>{{ user.is_staff}}</td>
+                    <td>
+                        <a href="{% url 'editar_usuario' user.pk %}" class="btn btn-success">
+                            Editar
+                        </a>
+                        <a href="{% url 'eliminar_usuario' user.pk%}" class="btn btn-danger">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <h1>No hay registros</h1>
+                {% endif %}
+        </table>
+    </div>
  </div>
-</body>
-</html>
+ <div class="container-fluid">
+        <a href="{% url 'registroProfesor' %}" class="btn btn-primary">
+                Volver
+        </a>
+        </div>
  {% endblock %}

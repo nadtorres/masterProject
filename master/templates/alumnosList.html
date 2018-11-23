@@ -13,24 +13,20 @@
                     <td>Sexo</td>
                     <td>Teléfono</td>
                     <td>Dirección</td>
-                    <td>Profesión</td>
-                    <td>Cursos Impartados</td>
                     <td>Acciones</td>
                 </tr>
             </thead>
             <tbody>
                 {% if object_list %}
-                {% for profesor in object_list%}
+                {% for alumnos in object_list%}
                 <tr>    
-                    <td>{{ profesor.nombre }}</td>
-                    <td>{{ profesor.apellido_pat }}</td>
-                    <td>{{ profesor.apellido_mat }}</td>
-                    <td>{{ profesor.sexo }}</td>
-                    <td>{{ profesor.telefono }}</td>
-                    <td>{{ profesor.direccion }}</td>
-                    <td>{{ profesor.profesion }}</td>
-                    <td>{{ profesor.cursosImpartados }}</td>
-                    <td></td>
+                    <td>{{ alumnos.nombre }}</td>
+                    <td>{{ alumnos.apellido_pat }}</td>
+                    <td>{{ alumnos.apellido_mat }}</td>
+                    <td>{{ alumnos.rut }}</td>
+                    <td>{{ alumnos.sexo }}</td>
+                    <td>{{ alumnos.telefono }}</td>
+                    <td>{{ alumnos.direccion }}</td>
                     <td>
                             <a href="{% url 'editar_usuario' user.pk %}" class="btn btn-success">
                                 Editar

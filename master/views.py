@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-
 from .models import User, Alumno, Profesor, Document
 from .forms import RegistroForm, AlumnoForm, ProfesorForm, UploadForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, ListView
 from django.utils.decorators import method_decorator
+
+
 
 
 # Create your views here.
@@ -18,18 +19,21 @@ def index(request):
 
 # CLASES Y FUNCIONES DE USUARIOS 
 
+@method_decorator(login_required, name='get')
 class RegistroUsuario(CreateView):
     model = User
     template_name = 'registration/registrar.html'
     form_class = RegistroForm
     success_url = reverse_lazy('registrar')
 
+@method_decorator(login_required, name='get')
 class UsuariosList(ListView):
     model = User
     template_name = 'UsuariosList.html'
     form_class = RegistroForm
     success_url = reverse_lazy('UsuariosList')
 
+@method_decorator(login_required, name='get')
 class UsuariosDelete(DeleteView):
     model = User
     template_name = 'eliminarUsuario.html'
@@ -77,15 +81,23 @@ class registroAlumno(CreateView):
     def get_queryset(self, *args, **kwargs):
         return Alumno.objects.filter(user=request.user)
 
+@method_decorator(login_required, name='get')
+class alumnosList(ListView):
+    model = Profesor
+    template_name = 'alumnosList.html'
+    form_class = ProfesorForm
+    success_url = reverse_lazy('alumnosList')
 
 # CLASES Y FUNCIONES DE PROFESORES
 
+@method_decorator(login_required, name='get')
 class registroProfesor(CreateView):
     model = Profesor
     template_name = 'registroProfesor.html'
     form_class = ProfesorForm
     success_url = reverse_lazy('registroProfesor')
 
+@method_decorator(login_required, name='get')
 class DocenteList(ListView):
     model = Profesor
     template_name = 'DocenteList.html'
@@ -94,7 +106,7 @@ class DocenteList(ListView):
 
 
 # CLASE PARA SUBIR DOCUMENTOS  
- 
+@login_required()
 def upload_file(request):
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
