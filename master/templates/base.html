@@ -51,6 +51,19 @@
           </div>
         </li>
       </ul>
+
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Ver Listados
+            </a>
+            <div class="dropdown-menu" aria-labelled-by="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'alumnosList' %}">Listado de Alumnos</a>
+              <a class="dropdown-item" href="{% url 'DocenteList' %}">Listado de Profesores</a>
+              <a class="dropdown-item" href="{% url 'UsuariosList' %}">Listado de Usuarios</a>
+            </div>
+          </li>
+        </ul>
       {% endif %}
     
   </div>

@@ -18,6 +18,40 @@ class Alumno(models.Model):
 	sexo = models.CharField(max_length=9, choices=sexo_choices, blank=False)
 	anioIngreso = models.DateField()
 	anioEgreso = models.DateField()
+	anioGraduacion = models.DateField()
+	nivelacion_si = 'Necesita'
+	nivelacion_no = 'No necesita'
+	nivelacion_choices = (
+		(nivelacion_si, u'Necesita'),
+		(nivelacion_no, u'No necesita'),
+	)
+	nivelacion = models.CharField(max_length=15, choices=nivelacion_choices, blank=False)
+	equivalencia_si = 'Equivalencia'
+	homologacion_si = 'Homologacion'
+	ninguno_q = 'Ninguno'
+	posee_choices = (
+		(equivalencia_si, u'Equivalencia'),
+		(homologacion_si, u'Homologacion'),
+		(ninguno_q, u'Ninguno'),
+	)
+	posee = models.CharField(max_length=30, choices=posee_choices, blank=False)
+	nivelacion_si = 'Necesita'
+	nivelacion_no = 'No necesita'
+	nivelacion_q = 'Ninguno'
+	nivelacion_choices = (
+		(nivelacion_si, u'Necesita'),
+		(nivelacion_no, u'No necesita'),
+		(nivelacion_q, u'Ninguno')
+	)
+	nivelacion = models.CharField(max_length=15, choices=nivelacion_choices, blank=False)
+	equivalencia_si = 'Equivalencia'
+	homologacion_si = 'Homologacion'
+	ninguno_si = 'Ninguno'
+	posee_choices = (
+		(equivalencia_si, u'Equivalencia'),
+		(homologacion_si, u'Homologacion'),
+		(ninguno_si, u'Ninguno'),	
+	)
 	telefono = models.IntegerField()
 	direccion = models.TextField()
 	semestreCursado = models.CharField(max_length=20)

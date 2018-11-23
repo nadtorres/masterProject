@@ -1,0 +1,15 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+<form method="post">
+	{% csrf_token %}
+</br>
+</br>
+	<h3>¿Desea eliminar el Alumno {{object}}?</h3>	
+</br>
+	<button class="btn btn-danger" onclick="alert('Se ha eliminado correctamente')"type="submit">Aceptar</button>
+	<a class= "btn btn-default" href="{% url 'AlumnoList' %}">Cancelar</a>
+</form>
+
+{% endblock content %}

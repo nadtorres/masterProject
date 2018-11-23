@@ -7,9 +7,6 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, ListView
 from django.utils.decorators import method_decorator
 
-
-
-
 # Create your views here.
 
 
@@ -72,6 +69,8 @@ class UsuarioDelete(DeleteView):
     template_name = 'eliminarUsuario.html'
     success_url = reverse_lazy('UsuariosList')
 
+# CLASES Y FUNCIONES DE ALUMNOS 
+
 @method_decorator(login_required, name='get')
 class registroAlumno(CreateView):
     model = Alumno
@@ -87,6 +86,34 @@ class alumnosList(ListView):
     template_name = 'alumnosList.html'
     form_class = ProfesorForm
     success_url = reverse_lazy('alumnosList')
+
+@method_decorator(login_required, name='get')
+class AlumnoDelete(DeleteView):
+    model = Alumno
+    template_name = 'eliminarAlumno.html'
+    success_url = reverse_lazy('AlumnoList')
+
+
+@method_decorator(login_required, name='get')
+class AlumnoUpdate(UpdateView):
+    model = Alumno
+    form_class = AlumnoForm
+    template_name = 'AlumnoList.html'
+    success_url = reverse_lazy('AlumnoList')
+
+
+@login_required()
+def actualizarAlumno(request, pk):
+    alumno = Alumno.objects.get(pk=pk)
+    if request.method == 'GET':
+        form = AlumnoForm(instance=alumno)
+    else:
+        form = AlumnoForm(request.POST, instance=alumno)
+        if form.is_valid():
+            form.save()
+        return redirect('AlumnoList')
+    return render(request, 'editar_alumno.html', {'form':form})
+
 
 # CLASES Y FUNCIONES DE PROFESORES
 
@@ -104,6 +131,31 @@ class DocenteList(ListView):
     form_class = ProfesorForm
     success_url = reverse_lazy('DocenteList')
 
+@method_decorator(login_required, name='get')
+class DocenteUpdate(UpdateView):
+    model = Profesor
+    form_class = ProfesorForm
+    template_name = 'DocenteList.html'
+    success_url = reverse_lazy('DocenteList')
+
+@login_required()
+def actualizarDocente(request, pk):
+    docente = Profesor.objects.get(pk=pk)
+    if request.method == 'GET':
+        form = ProfesorForm(instance=docente)
+    else:
+        form = ProfesorForm(request.POST, instance=docente)
+        if form.is_valid():
+            form.save()
+        return redirect('DocenteList')
+    return render(request, 'editar_docente.html', {'form':form})
+
+
+@method_decorator(login_required, name='get')
+class DocenteDelete(DeleteView):
+    model = Profesor
+    template_name = 'eliminarDocente.html'
+    success_url = reverse_lazy('DocenteList')
 
 # CLASE PARA SUBIR DOCUMENTOS  
 @login_required()
