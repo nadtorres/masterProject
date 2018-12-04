@@ -1,7 +1,12 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+from rest_framework.routers import DefaultRouter
 from . import views
 from django.contrib.auth import views as auth_views
 from django.contrib.admin.views.decorators import staff_member_required
+
+router = DefaultRouter()
+
 
 urlpatterns = [
 
@@ -39,5 +44,12 @@ urlpatterns = [
 # >>>>>>>>>>>>>>>>>>>>>>>>>> URL DE SUBIR ARCHIVOS <<<<<<<<<<<<<<<<<<<<<<<<<<
 
     path('upload', views.upload_file, name="upload"),
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>> URL APIS <<<<<<<<<<<<<<<<<<<<<<
+
+    path('api/alumnos', views.alumno_list),
+    path('api/profesores', views.profesores_list),
+    path('api/users', views.users_list),
 
 ]

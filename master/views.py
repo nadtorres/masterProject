@@ -1,6 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.shortcuts import render_to_response
+from .serializers import AlumnoSerializer, ProfesorSerializer, UserSerializer
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from django.views.decorators.csrf import csrf_exempt
+
 from .models import User, Alumno, Profesor, Document
 from .forms import RegistroForm, AlumnoForm, ProfesorForm, UploadForm
 from django.urls import reverse_lazy
@@ -37,12 +46,21 @@ class UsuariosDelete(DeleteView):
     form_class = RegistroForm
     success_url = reverse_lazy('UsuariosList')
 
-# def Usuario_eliminar(request, id):
-#     usuario = User.objects.get(id=id)
-#     if request.method == 'POST':
-#         usuario.delete()
-#         return redirect('UsuariosList')
-#     return render(request, 'eliminarUsuario.html', {'form':form})
+@csrf_exempt
+def users_list(request):
+    if request.method == 'GET':
+        users = User.objects.all()
+        print (users)
+        serializer = UserSerializer(users, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = UserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializers.errors, status=400)
 
 @method_decorator(login_required, name='get')
 class UsuarioUpdate(UpdateView):
@@ -77,14 +95,12 @@ class registroAlumno(CreateView):
     template_name = 'registroAlumno.html'
     form_class = AlumnoForm
     success_url = reverse_lazy('registroAlumno')
-    def get_queryset(self, *args, **kwargs):
-        return Alumno.objects.filter(user=request.user)
 
 @method_decorator(login_required, name='get')
 class alumnosList(ListView):
-    model = Profesor
+    model = Alumno
     template_name = 'alumnosList.html'
-    form_class = ProfesorForm
+    form_class = AlumnoForm
     success_url = reverse_lazy('alumnosList')
 
 @method_decorator(login_required, name='get')
@@ -113,6 +129,22 @@ def actualizarAlumno(request, pk):
             form.save()
         return redirect('AlumnoList')
     return render(request, 'editar_alumno.html', {'form':form})
+
+@csrf_exempt
+def alumno_list(request):
+    if request.method == 'GET':
+        alumnos = Alumno.objects.all()
+        print (alumnos)
+        serializer = AlumnoSerializer(alumnos, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = AlumnoSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializers.errors, status=400)
 
 
 # CLASES Y FUNCIONES DE PROFESORES
@@ -157,6 +189,22 @@ class DocenteDelete(DeleteView):
     template_name = 'eliminarDocente.html'
     success_url = reverse_lazy('DocenteList')
 
+@csrf_exempt
+def profesores_list(request):
+    if request.method == 'GET':
+        profesores = Profesor.objects.all()
+        print (profesores)
+        serializer = ProfesorSerializer(profesores, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = ProfesorSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializers.errors, status=400)
+
 # CLASE PARA SUBIR DOCUMENTOS  
 @login_required()
 def upload_file(request):
@@ -171,3 +219,10 @@ def upload_file(request):
     #tambien se puede utilizar render_to_response
     #return render_to_response('upload.html', {'form': form}, context_instance = RequestContext(request))
     return render(request, 'upload.html', {'form': form})
+
+# CLASE DE RETORNO JSONRESPONSE
+class JSONResponse(HttpResponse):
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)
