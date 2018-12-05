@@ -134,10 +134,10 @@ LOGIN_URL = '/magister/login'
 LOGIN_REDIRECT_URL = '/magister/home'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "master/templates/static"),
 ]
 
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'master/media')
 MEDIA_ROOT = 'upload/'
-MEDIA_URL='/upload/'
+MEDIA_URL='/'

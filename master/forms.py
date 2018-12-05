@@ -1,7 +1,7 @@
 from django  import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Alumno, Profesor
+from .models import Alumno, Profesor, UserProfile
 
 class RegistroForm(UserCreationForm):
     class Meta:
@@ -13,7 +13,8 @@ class RegistroForm(UserCreationForm):
             'email',
             'password',
             'is_active',
-            'is_staff'
+            'is_staff',
+            
         ]
         labels = {
             'username': '* Nombre de usuario',
@@ -22,6 +23,16 @@ class RegistroForm(UserCreationForm):
             'email': '* Email',
             'password': '* Contraseña',
             
+        }
+
+class PerfilForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = [
+            'imagen'
+        ]
+        labels = {
+            'imagen': 'Seleccione una imagen'
         }
 
 class AlumnoForm(forms.ModelForm):

@@ -1,11 +1,22 @@
 from django.db import models 
-from django.contrib.auth.models import User
-
-
+from django.contrib.auth.models import User, AbstractUser
+from django.db.models.signals import post_save
 
 
 # Create your models here.
 
+class UserProfile(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	imagen = models.ImageField(upload_to='profile_image', blank=True)
+
+	def __str__(self):
+		return self.user.username
+
+def create_profile(sender, **kwargs):
+	if kwargs['created']:
+		user_profile = UserProfile.objects.create(user=kwargs['instance'])
+
+post_save.connect(create_profile, sender=User)
 
 class Alumno(models.Model):
 	nombre = models.CharField(max_length=40)
@@ -25,9 +36,11 @@ class Alumno(models.Model):
 	universidadProcedencia = models.CharField(max_length=40)
 	equivalencia_si = 'Equivalencia'
 	homologacion_si = 'Homologación'
+	ninguno_si = 'No Aplica'
 	posee_choices = (
 		(equivalencia_si, u'Equivalencia'),
 		(homologacion_si, u'Homologación'),
+		(ninguno_si, u'No Aplica'),
 	)
 	posee = models.CharField(max_length=30, choices=posee_choices, blank=False)
 	nivelacion_si = 'Necesita'
@@ -39,9 +52,11 @@ class Alumno(models.Model):
 	nivelacion = models.CharField(max_length=15, choices=nivelacion_choices, blank=False)
 	aprueba = 'Aprueba'
 	reprueba = 'Reprueba'
+	ninguno_si = 'No Aplica'
 	resultado_choices = (
 		(aprueba, u'Aprueba'),
-		(reprueba, u'Reprueba')
+		(reprueba, u'Reprueba'),
+		(ninguno_si, u'No Aplica'),
 	)
 	resultadosNivelacion = models.CharField(max_length=30, choices=resultado_choices, blank=False)
 	semestreIngreso = models.IntegerField()	
@@ -60,9 +75,11 @@ class Alumno(models.Model):
 	puntaje = models.IntegerField()
 	aprueba_condicion = 'Aprueba'
 	reprueba_condicion = 'Reprueba'
+	ninguno_si = 'No Aplica'
 	resultadoCondicion_choices = (
 		(aprueba_condicion, u'Aprueba'),
-		(reprueba_condicion, u'Reprueba')
+		(reprueba_condicion, u'Reprueba'),
+		(ninguno_si, u'No Aplica'),
 	)
 	resultadosCondicion = models.CharField(max_length=30, choices=resultadoCondicion_choices, blank=False)
 

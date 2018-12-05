@@ -8,3 +8,4 @@ admin.site.site_title="Master Project"
 admin.site.register(Alumno)
 admin.site.register(Profesor)
 admin.site.register(Document)
+admin.site.register(UserProfile)

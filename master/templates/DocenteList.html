@@ -32,10 +32,10 @@
                     <td>{{ profesor.cursosImpartados }}</td>
                     <td></td>
                     <td>
-                            <a href="{% url 'editar_usuario' user.pk %}" class="btn btn-success">
+                            <a href="{% url 'editar_docente' profesor.pk %}" class="btn btn-success">
                                 Editar
                             </a>
-                            <a href="{% url 'eliminar_usuario' user.pk%}" class="btn btn-danger">
+                            <a href="{% url 'eliminar_docente' profesor.pk%}" class="btn btn-danger">
                                 Eliminar
                             </a>
                         </td>

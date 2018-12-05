@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ 
+</head> 
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well">
+                    <fieldset>
+                        <legend class="text-center header">Subir Fotografía Usuarios </legend>
+                        <div class="form-control" color="black">
+                            <form class="form" method="post" enctype="multipart/form-data">
+                                {% csrf_token %} {{ form.as_p }}
+                                <div class="tile-footer">
+                                    <div class="form-group">
+                                        <div class="col-md-8 col-md-offset-3">
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="fa fa-fw fa-lg fa-check-circle"></i>Registrar</button>&nbsp;&nbsp;
+                                            <a class="btn btn-primary" href="{% url 'actualizarFoto' %}">
+                                                <i class="fa fa-fw fa-lg fa-times-circle"></i>Cancelar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+                <div form class="form-horizontal" method="get">
+                    <button class="btn btn-primary" type="submit">
+                        <a class="btn btn-primary" href="{% url 'UsuariosList' %}">Ver Usuarios</a>
+                </div>
+
+</div>
+</html>
+{% endblock %}

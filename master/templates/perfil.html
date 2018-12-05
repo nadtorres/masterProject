@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% block content %} 
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Perfil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran|Playfair+Display" rel="stylesheet">
+	<div class="row">
+		<div class="col-md-11">
+			<h1 class="page-header" id="perfilHeader">Perfil de {{ user.username }}
+				<small><a href="{% url 'editardatos' %}">Editar datos</a></small>
+			</h1>
+	    </div>
+	</div>
+	<!-- DIV FOTO DE USUARIO-->
+	<div class="row">
+		<div class="col-md-3">
+			<div class="col-md-12" aling="center">
+				<img class="img-responsive img-portfolio img-hover img-responsive" src="http://www.gravatar.com/avatar/d23f79a51548947e597b106e0479ffb2?s=50&r=g&d=http%3A%2F%2Farqa.com%2Fwp-content%2Fuploads%2F2015%2F06%2Fnew-mistery.png">
+			</div>
+			<div class="col-md-12">
+				<br>
+				<p class="text-center"><strong>{{ user.username }}</strong></p>
+				<p class="text-center"><em>{{ user.first_name }} {{ user.last_name }}</em></p>
+			</div>
+
+			<!-- BOTONES DE REDES SOCIALES -->
+
+			<div class="col-md-12 text-center">
+				<ul class="list-unstyled list-inline list-social-icons">
+					<li>
+						<a href="#"><i class="fa fa-facebook"></i></a>
+					</li>
+					<li>
+						<a href="#"><i class="fa fa-linkedin"></i></a>
+					</li>
+					<li>
+						<a href="#"><i class="fa fa-twitter"></i></a>
+					</li>
+					<li>
+						<a href="#"><i class="fa fa-google"></i></a>
+					</li>
+				</ul>
+			</div>
+			<br>
+
+			<!-- CSS INCORPORADO PORQUE NO PODÍA CARGAR STATIC FILES-->
+
+			<link rel="stylesheet" type="text/css"> 
+			<style type="text/css">
+				.fa {
+				    padding: 20px;
+				    font-size: 20px;
+				    width: 10px;
+				    text-align: center; 
+				    font-weight: 10px;
+				    width: 10px;
+				    height: 20px;
+				}
+
+				.fa:hover {
+				    opacity: 0.7;
+				}
+				 
+				.fa-facebook {
+				    background: #3B5998;
+				    color: white;
+				    text-align: center;
+				}
+
+				.fa-twitter {
+				    background: #55ACEE;
+				    color: white;
+				}
+
+				.fa-google {
+				  background: #dd4b39;
+				  color: white;
+				}
+
+				.fa-linkedin {
+				  background: #007bb5;
+				  color: white;
+				}
+
+				.ul {
+					background: #62AAE6;
+					color: #62AAE6;
+				}
+
+				#usuario {
+					font-family: 'Playfair Display', serif;
+					font-family: 'Catamaran', sans-serif;
+				}
+
+				#h3 {
+					color: #1A4164;
+				}
+
+			</style>
+
+		<!-- BARRA LATERAL -->
+
+			<div class="col-md-12" id="container">
+				<br>
+				<ul class="list-group list-primary">
+					<a href="{% url 'perfil' %}" class="list-group-item">Mi perfil</a>
+					<a href="{% url 'perfil' %}" class="list-group-item">Información Básica</a>
+					<a href="{% url 'perfil' %}" class="list-group-item">Información Avanzada</a>
+					<a href="{% url 'perfil' %}" class="list-group-item">Contacto</a>
+				</ul>
+			</div>
+		</div>
+
+		<!-- PARTE SUPERIOR DEL PERFIL-->
+<br>
+	<div class="col-md-9">
+		<div class="col-md-9" style="border-width: 1px 1px 0px 1px; border-style: solid; border-color: lightgrey;">
+			<h3 style="text-align: center;" id="h3">Mi perfil <p><small> Información básica</small></p></h3>
+		<div>
+			<hr>
+				<h4 id="usuario"> Usuario: {{ user.username }} </h4>
+			<hr>
+				<h4 id="usuario"> Nombre: {{ user.first_name }}</h4>
+			<hr>
+				<h4 id="usuario"> Apellidos: {{ user.last_name }}</h4>
+			<hr>
+				<h4 id="usuario"> R.U.T: 12.345.632-5</h4>
+			<hr>
+				<h4 id="usuario"> Email: {{ user.email }}</h4>
+			<hr>
+				<h4 id="usuario"> Teléfono: +569 99887766</h4>
+			<hr>
+				<h3 style="text-align: center;" id="h3">Dirección Permanente <p><small> Ubicación </small></p></h3>
+			<hr>
+				<h4 id="usuario"> Calle: Los Copihues</h4>
+			<hr>
+				<h4 id="usuario"> Ciudad: Llay-Llay</h4>
+			<hr>
+				<h4 id="usuario"> Comuna: Llay-Llay</h4>
+			<hr>
+		</div>
+	
+
+	</div>
+
+ </div>
+</form>
+</head>
+<body>
+
+</body>
+</html>
+        
+
+{% endblock content %}

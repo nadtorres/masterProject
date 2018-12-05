@@ -10,8 +10,9 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import User, Alumno, Profesor, Document
-from .forms import RegistroForm, AlumnoForm, ProfesorForm, UploadForm
+from .models import Alumno, Profesor, UserProfile
+from .models import User, Alumno, Profesor, Document, UserProfile
+from .forms import RegistroForm, AlumnoForm, ProfesorForm, UploadForm, PerfilForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, ListView
 from django.utils.decorators import method_decorator
@@ -114,8 +115,8 @@ class AlumnoDelete(DeleteView):
 class AlumnoUpdate(UpdateView):
     model = Alumno
     form_class = AlumnoForm
-    template_name = 'AlumnoList.html'
-    success_url = reverse_lazy('AlumnoList')
+    template_name = 'alumnosList.html'
+    success_url = reverse_lazy('alumnosList')
 
 
 @login_required()
@@ -127,7 +128,7 @@ def actualizarAlumno(request, pk):
         form = AlumnoForm(request.POST, instance=alumno)
         if form.is_valid():
             form.save()
-        return redirect('AlumnoList')
+        return redirect('alumnosList')
     return render(request, 'editar_alumno.html', {'form':form})
 
 @csrf_exempt
@@ -219,6 +220,7 @@ def upload_file(request):
     #tambien se puede utilizar render_to_response
     #return render_to_response('upload.html', {'form': form}, context_instance = RequestContext(request))
     return render(request, 'upload.html', {'form': form})
+    
 
 # CLASE DE RETORNO JSONRESPONSE
 class JSONResponse(HttpResponse):
@@ -226,3 +228,39 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
+
+class RegistroPerfil(CreateView):
+    model = UserProfile
+    template_name = 'foto.html'
+    form_class = PerfilForm
+    success_url = reverse_lazy('foto')
+    success_message = 'Se ha agregado correctamente'
+
+class PerfilList(ListView):
+    model = UserProfile
+    template_name = 'perfil.html'
+    form_class = PerfilForm
+    success_url = reverse_lazy('perfil')
+    paginate_by = 10
+
+@login_required()
+def actualizarFoto(request, pk):
+    usuario = User.objects.get(pk=pk)
+    if request.method == 'GET':
+        form = RegistroForm(instance=usuario)
+    else:
+        form = RegistroForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+        return redirect('foto')
+    return render(request, 'foto.html', {'form':form})
+    
+# QUIENES SOMOS
+
+def quienesomos(request):
+    return render(request, 'quienesomos.html',{})
+
+
+
+def contacto(request):
+    return render(request, 'contacto.html', {})
