@@ -2,7 +2,6 @@ from django.conf import settings
 from rest_framework import serializers
 from .models import Alumno, Profesor, User
 
-
     # If your <field_name> is declared on your serializer with the parameter required=False
     # then this validation step will not take place if the field is not included.
 

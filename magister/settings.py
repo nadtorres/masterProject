@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'master',
-    'upload',
     'table',
     'jquery',
     'docx',
@@ -68,6 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media', 
+
             ],
         },
     },
@@ -136,8 +137,10 @@ LOGIN_REDIRECT_URL = '/magister/home'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "master/templates/static"),
 ]
-
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'master/media')
-MEDIA_ROOT = 'upload/'
+# TEMPLATES_DIRS=(
+#     '/Users/nadiatorresleyton/masterProject/upload'
+# )
+# MEDIA_ROOT = 'upload/'
+# MEDIA_ROOT_DIR = "media"
 MEDIA_URL='/'
+MEDIA_ROOT = 'upload/'

@@ -11,7 +11,6 @@ class RegistroForm(UserCreationForm):
             'first_name',
             'last_name',
             'email',
-            'password',
             'is_active',
             'is_staff',
             
@@ -21,7 +20,6 @@ class RegistroForm(UserCreationForm):
             'first_name': 'Nombre',
             'last_name': 'Apellidos',
             'email': '* Email',
-            'password': '* Contraseña',
             
         }
 
@@ -113,7 +111,7 @@ class ProfesorForm(forms.ModelForm):
 
  
 class UploadForm(forms.Form):
- filename = forms.CharField(max_length=100)
+ nombreArchivo = forms.CharField(max_length=100)
  docfile = forms.FileField(
         label='Selecciona un archivo'
     )

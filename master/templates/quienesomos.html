@@ -1,4 +1,3 @@
-{% extends 'base.html' %}
 {% load static %}
 {% block content %}
 <!DOCTYPE html>
@@ -6,7 +5,9 @@
 <head>
 	<title>Quienes Somos</title>
 	<meta charset="utf-8">
+    <script src="{% static 'js/jquery-latest.js' %}"></script>
 	<meta name="viewport" content="width=device=width, user-scalable=no, initial-scale=1, maximun-scale=1, minimum-scale=1">
+	<script src="{% static 'js/arriba.js' %}"></script>
 	<link rel="stylesheet" href="{% static 'css/superslides.css' %}">
 </head>
 <body>
@@ -54,7 +55,9 @@
 		<nav class="slides-navigation">
 			<a href="" class="next">&#62;</a>
 			<a href="" class="prev">&#60;</a>
-		</nav>
+			<span href="{% url 'home' %}" class="ir-home" onclick="boton()">&#8962;</span>
+			<span href="{% url 'contacto' %}" class="ir-contacto" onclick="contacto()">&#9993;</span>
+		</nav> 
 	</div>
 
 	<script src="{% static 'js/jquery.js' %}"></script>
@@ -119,6 +122,50 @@
 	top: 50%;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
+}
+
+.ir-home {
+    display: inline-block;
+    padding: 10px;
+    text-decoration: none;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    cursor: pointer;
+    position: fixed;
+    top:5px;
+    right:5px;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.ir-home:hover {
+    background: #000;
+}
+
+.ir-contacto {
+	display: inline-block;
+    padding: 10px;
+    text-decoration: none;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    cursor: pointer;
+    position: fixed;
+    top:5px;
+    left:5px;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.ir-contacto:hover {
+	background: #000;
 }
 
 </style>

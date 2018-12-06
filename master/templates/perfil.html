@@ -19,7 +19,7 @@
 	<div class="row">
 		<div class="col-md-3">
 			<div class="col-md-12" aling="center">
-				<img class="img-responsive img-portfolio img-hover img-responsive" src="http://www.gravatar.com/avatar/d23f79a51548947e597b106e0479ffb2?s=50&r=g&d=http%3A%2F%2Farqa.com%2Fwp-content%2Fuploads%2F2015%2F06%2Fnew-mistery.png">
+				<img class="img-responsive img-portfolio img-hover img-responsive" src="{{ user.userprofile.imagen.url }}">
 			</div>
 			<div class="col-md-12">
 				<br>
@@ -110,7 +110,7 @@
 					<a href="{% url 'perfil' %}" class="list-group-item">Mi perfil</a>
 					<a href="{% url 'perfil' %}" class="list-group-item">Información Básica</a>
 					<a href="{% url 'perfil' %}" class="list-group-item">Información Avanzada</a>
-					<a href="{% url 'perfil' %}" class="list-group-item">Contacto</a>
+					<a href="{% url 'contacto' %}" class="list-group-item">Contacto</a>
 				</ul>
 			</div>
 		</div>

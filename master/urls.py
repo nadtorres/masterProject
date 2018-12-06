@@ -7,6 +7,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 from django.conf import settings
 from django.conf.urls.static import static
+
 router = DefaultRouter()
 
 
@@ -30,7 +31,7 @@ urlpatterns = [
     path('<int:pk>', views.UsuariosDelete.as_view(), name='UsuariosDelete'),
     path('editarUsario/<int:pk>', views.actualizarUsuario, name='editar_usuario'),
     path('perfil', views.PerfilList.as_view(), name='perfil'),
-    path('actualizarFoto/<int:pk>', views.actualizarFoto, name='actualizarFoto'),
+    # path('actualizarFoto/<int:pk>', views.actualizarFoto, name='actualizarFoto'),
 
 
 
@@ -63,9 +64,11 @@ urlpatterns = [
 # >>>>>>>>>>>>>>>>>>>>>>>>> QUIENES SOMOS <<<<<<<<<<<<<<<<<<<<<<
 
     path('quienesomos', views.quienesomos, name='quienesomos'),
+    path('contacto', views.contacto, name='contacto'),
 
 
 ] 
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
