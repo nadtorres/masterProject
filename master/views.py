@@ -10,12 +10,15 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Alumno, Profesor
 from .models import User, Alumno, Profesor, Document, UserProfile
-from .forms import RegistroForm, AlumnoForm, ProfesorForm, UploadForm, PerfilForm
+from .forms import RegistroForm, AlumnoForm, ProfesorForm, UploadForm, PerfilForm 
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, ListView
 from django.utils.decorators import method_decorator
+from django.db.models.signals import post_save
+from braces.views import LoginRequiredMixin
+from django.dispatch import receiver
+
 
 # Create your views here.
 
@@ -27,21 +30,21 @@ def index(request):
 # CLASES Y FUNCIONES DE USUARIOS 
 
 @method_decorator(login_required, name='get')
-class RegistroUsuario(CreateView):
+class RegistroUsuario(LoginRequiredMixin, CreateView):
     model = User
     template_name = 'registration/registrar.html'
     form_class = RegistroForm
     success_url = reverse_lazy('registrar')
 
 @method_decorator(login_required, name='get')
-class UsuariosList(ListView):
+class UsuariosList(LoginRequiredMixin, ListView):
     model = User
     template_name = 'UsuariosList.html'
     form_class = RegistroForm
     success_url = reverse_lazy('UsuariosList')
 
 @method_decorator(login_required, name='get')
-class UsuariosDelete(DeleteView):
+class UsuariosDelete(LoginRequiredMixin, DeleteView):
     model = User
     template_name = 'eliminarUsuario.html'
     form_class = RegistroForm
@@ -63,8 +66,9 @@ def users_list(request):
             return JSONResponse(serializer.data, status=201)
         return JSONResponse(serializers.errors, status=400)
 
+
 @method_decorator(login_required, name='get')
-class UsuarioUpdate(UpdateView):
+class UsuarioUpdate(LoginRequiredMixin, UpdateView):
     model = User
     form_class = RegistroForm
     template_name = 'usuariosList.html'
@@ -83,48 +87,47 @@ def actualizarUsuario(request, pk):
     return render(request, 'editar_usuario.html', {'form':form})
 
 @method_decorator(login_required, name='get')
-class UsuarioDelete(DeleteView):
+class UsuarioDelete(LoginRequiredMixin, DeleteView):
     model = User
     template_name = 'eliminarUsuario.html'
     success_url = reverse_lazy('UsuariosList')
 
-@method_decorator(login_required, name='get')
 class PerfilList(ListView):
     model = UserProfile
     template_name = 'perfil.html'
     form_class = PerfilForm
     success_url = reverse_lazy('perfil')
-    paginate_by = 10
+   
 
 # CLASES Y FUNCIONES DE ALUMNOS 
 
 @method_decorator(login_required, name='get')
-class registroAlumno(CreateView):
+class registroAlumno(LoginRequiredMixin, CreateView):
     model = Alumno
     template_name = 'registroAlumno.html'
     form_class = AlumnoForm
     success_url = reverse_lazy('registroAlumno')
 
 @method_decorator(login_required, name='get')
-class alumnosList(ListView):
+class AlumnoList(LoginRequiredMixin, ListView):
     model = Alumno
-    template_name = 'alumnosList.html'
+    template_name = 'AlumnoList.html'
     form_class = AlumnoForm
-    success_url = reverse_lazy('alumnosList')
+    success_url = reverse_lazy('AlumnoList')
 
 @method_decorator(login_required, name='get')
-class AlumnoDelete(DeleteView):
+class AlumnoDelete(LoginRequiredMixin, DeleteView):
     model = Alumno
     template_name = 'eliminarAlumno.html'
     success_url = reverse_lazy('AlumnoList')
 
 
 @method_decorator(login_required, name='get')
-class AlumnoUpdate(UpdateView):
+class AlumnoUpdate(LoginRequiredMixin, UpdateView):
     model = Alumno
     form_class = AlumnoForm
-    template_name = 'alumnosList.html'
-    success_url = reverse_lazy('alumnosList')
+    template_name = 'AlumnoList.html'
+    success_url = reverse_lazy('AlumnoList')
 
 
 @login_required()
@@ -136,7 +139,7 @@ def actualizarAlumno(request, pk):
         form = AlumnoForm(request.POST, instance=alumno)
         if form.is_valid():
             form.save()
-        return redirect('alumnosList')
+        return redirect('AlumnoList')
     return render(request, 'editar_alumno.html', {'form':form})
 
 @csrf_exempt
@@ -159,21 +162,21 @@ def alumno_list(request):
 # CLASES Y FUNCIONES DE PROFESORES
 
 @method_decorator(login_required, name='get')
-class registroProfesor(CreateView):
+class registroProfesor(LoginRequiredMixin, CreateView):
     model = Profesor
     template_name = 'registroProfesor.html'
     form_class = ProfesorForm
     success_url = reverse_lazy('registroProfesor')
 
 @method_decorator(login_required, name='get')
-class DocenteList(ListView):
+class DocenteList(LoginRequiredMixin, ListView):
     model = Profesor
     template_name = 'DocenteList.html'
     form_class = ProfesorForm
     success_url = reverse_lazy('DocenteList')
 
 @method_decorator(login_required, name='get')
-class DocenteUpdate(UpdateView):
+class DocenteUpdate(LoginRequiredMixin, UpdateView):
     model = Profesor
     form_class = ProfesorForm
     template_name = 'DocenteList.html'
@@ -193,7 +196,7 @@ def actualizarDocente(request, pk):
 
 
 @method_decorator(login_required, name='get')
-class DocenteDelete(DeleteView):
+class DocenteDelete(LoginRequiredMixin, DeleteView):
     model = Profesor
     template_name = 'eliminarDocente.html'
     success_url = reverse_lazy('DocenteList')
@@ -220,13 +223,13 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
-        	newdoc = Document(filename = request.POST['filename'],docfile = request.FILES['docfile'])
+        	newdoc = Document(filename = request.POST['filename'],docfile = request.FILES['file'])
         	newdoc.save(form)
-        	return redirect("uploads")
+        return redirect("upload")
     else:
         form = UploadForm()
-    #tambien se puede utilizar render_to_response
-    #return render_to_response('upload.html', {'form': form}, context_instance = RequestContext(request))
+    # tambien se puede utilizar render_to_response
+    # return render_to_response('upload.html', {'form': form}, context_instance = RequestContext(request))
     return render(request, 'upload.html', {'form': form})
 
 
@@ -240,7 +243,7 @@ class JSONResponse(HttpResponse):
         super(JSONResponse, self).__init__(content, **kwargs)
 
 @method_decorator(login_required, name='get')
-class RegistroPerfil(CreateView):
+class RegistroPerfil(LoginRequiredMixin, CreateView):
     model = UserProfile
     template_name = 'foto.html'
     form_class = PerfilForm
@@ -272,3 +275,7 @@ def quienesomos(request):
 @login_required()
 def contacto(request):
     return render(request, 'contacto.html', {})
+
+# class UserViewSet(viewsets.ModelViewSet):
+#     queryset = User.objects.all().order_by('-date_joined')
+#     serializer_class = UserSerializer

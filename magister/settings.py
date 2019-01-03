@@ -32,16 +32,19 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'master',
+    'upload',
     'table',
     'jquery',
     'docx',
     'rest_framework',
+    'django_pdb',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -52,6 +55,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django_pdb.middleware.PdbMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
+    
 ]
 
 ROOT_URLCONF = 'magister.urls'
@@ -73,6 +81,13 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+  'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 5
+    
+}
+
 
 WSGI_APPLICATION = 'magister.wsgi.application'
 
@@ -137,10 +152,8 @@ LOGIN_REDIRECT_URL = '/magister/home'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "master/templates/static"),
 ]
-# TEMPLATES_DIRS=(
-#     '/Users/nadiatorresleyton/masterProject/upload'
-# )
-# MEDIA_ROOT = 'upload/'
-# MEDIA_ROOT_DIR = "media"
-MEDIA_URL='/'
+
 MEDIA_ROOT = 'upload/'
+MEDIA_URL='/'
+
+LOGIN_URL = '/accounts/login/'

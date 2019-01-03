@@ -1,5 +1,6 @@
 from django.urls import path, include
-from rest_framework import routers
+from django.conf.urls import url
+from rest_framework import routers, serializers, viewsets, generics
 from rest_framework.routers import DefaultRouter
 from . import views
 from django.contrib.auth import views as auth_views
@@ -7,9 +8,34 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.decorators import login_required
 
-router = DefaultRouter()
+from django.contrib.auth.models import User
 
+from master.views import * 
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('url', 'username', 'email', 'is_staff')
+
+class userViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class= UserSerializer
+
+class AlumnoSerializer(serializers.HyperlinkedModelSerializer):
+  class Meta:
+    model = Alumno
+    fields = '__all__'
+
+class AlumnoViewSet(viewsets.ModelViewSet):
+    queryset = Alumno.objects.all()
+    serializer_class= AlumnoSerializer
+
+router = routers.DefaultRouter()
+router.register(r'users', userViewSet)
+router.register(r'Alumno', AlumnoViewSet)
 
 urlpatterns = [
 
@@ -37,7 +63,7 @@ urlpatterns = [
 
 # >>>>>>>>>>>>>>>>>>>>>>>>> URL DE ALUMNO <<<<<<<<<<<<<<<<<<<<<<<<<<<
     path('registroAlumno', views.registroAlumno.as_view(), name='registroAlumno'),
-    path('alumnosList', views.alumnosList.as_view(), name='alumnosList'),
+    path('AlumnoList', views.AlumnoList.as_view(), name='AlumnoList'),
     path('registroAlumno', views.AlumnoUpdate.as_view(), name='AlumnoUpdate'),
     path('editarAlumno/<int:pk>', views.actualizarAlumno, name='editar_alumno'),
     path('eliminarAlumno/<int:pk>', views.AlumnoDelete.as_view(), name='eliminar_alumno'),
@@ -52,11 +78,12 @@ urlpatterns = [
     path('eliminarDocente/<int:pk>', views.DocenteDelete.as_view(), name='eliminar_docente'),
 # >>>>>>>>>>>>>>>>>>>>>>>>>> URL DE SUBIR ARCHIVOS <<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    path('upload', views.upload_file, name="upload"),
+    path('upload/', views.upload_file, name="upload"),
 
 
 # >>>>>>>>>>>>>>>>>>>>>>>>> URL APIS <<<<<<<<<<<<<<<<<<<<<<
 
+    # path('api/auth/', include('rest_framework.urls')),
     path('api/alumnos', views.alumno_list),
     path('api/profesores', views.profesores_list),
     path('api/users', views.users_list),
@@ -68,6 +95,10 @@ urlpatterns = [
 
 
 ] 
+urlpatterns += [
+    url(r'^', include(router.urls)),
+    url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)

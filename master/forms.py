@@ -32,7 +32,7 @@ class PerfilForm(forms.ModelForm):
         labels = {
             'imagen': 'Seleccione una imagen'
         }
-
+        
 class AlumnoForm(forms.ModelForm):
     class Meta:
         model = Alumno
@@ -45,19 +45,19 @@ class AlumnoForm(forms.ModelForm):
             'email',
             'telefono',
             'direccion',
-            'universidadProcedencia',
+            'universidad_procedencia',
             'posee',
             'nivelacion',
-            'resultadosNivelacion',
-            'semestreIngreso',
-            'anioIngreso',
-            'estadoMatricula',
-            'antecedentesAcademicos',
-            'antecedentesProfesionales',
-            'cartaRecomendacion',
+            'resultados_nivelacion',
+            'semestre_ingreso',
+            'anio_ingreso',
+            'estado_matricula',
+            'antecedentes_academicos',
+            'antecedentes_profesionales',
+            'carta_recomendacion',
             'entrevista',
             'puntaje',
-            'resultadosCondicion'
+            'resultados_condicion'
         ]
         labels = {
             'nombre': '*Nombre de Alumno',
@@ -68,21 +68,21 @@ class AlumnoForm(forms.ModelForm):
             'email': 'Email',
             'telefono': '*Teléfono',
             'direccion': 'Dirección',
-            'universidadProcedencia': 'Universidad de Procedencia',
+            'universidad_procedencia': 'Universidad de Procedencia',
             'posee': '*Seleccione',
             'nivelacion': '*Nivelación',
-            'resultadosNivelacion': 'Seleccione Resultado Nivelación',
-            'semestreIngreso': 'Semestre de Ingreso',
-            'anioIngreso': '*Año de Ingreso',
-            'estadoMatricula': 'Seleccione Estado de Matrícula',
-            'antecedentesAcademicos': 'Antecedentes Académicos',
-            'antecedentesProfesionales': 'Antecedentes Profesionales',
-            'cartaRecomendacion': 'Carta de Recomendación',
+            'resultados_nivelacion': 'Seleccione Resultado Nivelación',
+            'semestre_ingreso': 'Semestre de Ingreso',
+            'anio_ingreso': '*Año de Ingreso',
+            'estado_matricula': 'Seleccione Estado de Matrícula',
+            'antecedentes_academicos': 'Antecedentes Académicos',
+            'antecedentes_profesionales': 'Antecedentes Profesionales',
+            'carta_recomendacion': 'Carta de Recomendación',
             'entrevista': 'Entrevista',
             'puntaje': 'Puntaje',
-            'resultadosCondicion': 'Resultado'
+            'resultados_condicion': 'Resultado'
         }
-    
+
 class ProfesorForm(forms.ModelForm):
     class Meta:
         model = Profesor
@@ -111,7 +111,12 @@ class ProfesorForm(forms.ModelForm):
 
  
 class UploadForm(forms.Form):
- nombreArchivo = forms.CharField(max_length=100)
- docfile = forms.FileField(
-        label='Selecciona un archivo'
-    )
+ filename = forms.CharField(max_length=100)
+ file = forms.FileField(
+     label='Selecciona un Archivo'
+ )
+ fields=['filename', 'docfile']
+
+ def clean(self):
+     print (self.cleaned_data)
+     return self.cleaned_data

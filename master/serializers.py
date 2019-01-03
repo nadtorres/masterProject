@@ -17,7 +17,7 @@ class AlumnoSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Alumno
 		fields = '__all__'
-		#fields = ('id', 'nombre', 'apellido_pat', 'apellido_mat', 'rut' , 'sexo' , 'email' ,'telefono','direccion' ,'universidadProcedencia','posee','nivelacion','resultadosNivelacion' ,'semestreIngreso','anioIngreso' ,'estadoMatricula' ,'antecedentesAcademicos','antecedentesProfesionales' ,'cartaRecomendacion','entrevista','puntaje','resultadosCondicion')
+		# fields = ('id', 'nombre', 'apellido_pat', 'apellido_mat', 'rut' , 'sexo' , 'email' ,'telefono','direccion' ,'universidadProcedencia','posee','nivelacion','resultadosNivelacion' ,'semestreIngreso','anioIngreso' ,'estadoMatricula' ,'antecedentesAcademicos','antecedentesProfesionales' ,'cartaRecomendacion','entrevista','puntaje','resultadosCondicion')
 
 class ProfesorSerializer(serializers.ModelSerializer):
   class Meta:
@@ -28,3 +28,5 @@ class UserSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
     fields = '__all__'
+
+    

@@ -3,90 +3,77 @@ from django.contrib.auth.models import User, AbstractUser
 from django.db.models.signals import post_save
 
 
+
 # Create your models here.
 
 class UserProfile(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	imagen = models.ImageField(upload_to='static/img', blank=True)
+	user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+	imagen = models.ImageField(upload_to='static/img', null=True)
 
-	def __str__(self):
-		return self.user.username
-
-# def create_profile(sender, **kwargs):
-# 	if kwargs['created']:
-# 		user_profile = UserProfile.objects.create(user=kwargs['instance'])
-
-# post_save.connect(create_profile, sender=User)
 
 class Alumno(models.Model):
-	nombre = models.CharField(max_length=40, blank=False)
-	apellido_pat = models.CharField(max_length=10, blank=False)
-	apellido_mat = models.CharField(max_length=10, blank=True)
-	rut = models.CharField(max_length=13, blank=False)
+	nombre = models.CharField(max_length=40, null=True)
+	apellido_pat = models.CharField(max_length=40, null=True)
+	apellido_mat = models.CharField(max_length=40, null=True)
+	rut = models.CharField(max_length=13, null=True)
 	sexo_masculino = 'Masculino'
 	sexo_femenino = 'Femenino'
 	sexo_choices = (
 		(sexo_masculino, u'Masculino'),
 		(sexo_femenino, u'Femenino'),
 	)
-	sexo = models.CharField(max_length=9, choices=sexo_choices, blank=False)
-	email = models.EmailField(max_length=70,blank=True, default='null')
-	telefono = models.IntegerField(blank=True)
-	direccion = models.CharField(max_length=100, blank=True)
-	universidadProcedencia = models.CharField(max_length=40)
+	sexo = models.CharField(max_length=20, choices=sexo_choices, blank=True, null=True)
+	email = models.EmailField(max_length=70,blank=True, null=True)
+	telefono = models.IntegerField(blank=False, null=True)
+	direccion = models.CharField(max_length=100, null=True)
+	universidad_procedencia = models.CharField(max_length=40, null=True)
 	equivalencia_si = 'Equivalencia'
 	homologacion_si = 'Homologación'
-	ninguno_si = 'No Aplica'
 	posee_choices = (
 		(equivalencia_si, u'Equivalencia'),
 		(homologacion_si, u'Homologación'),
-		(ninguno_si, u'No Aplica'),
 	)
-	posee = models.CharField(max_length=30, choices=posee_choices, blank=True, default='null')
+	posee = models.CharField(max_length=30, choices=posee_choices, blank=False, null=True)
 	nivelacion_si = 'Necesita'
 	nivelacion_no = 'No necesita'
 	nivelacion_choices = (
 		(nivelacion_si, u'Necesita'),
 		(nivelacion_no, u'No necesita'),
 	)
-	nivelacion = models.CharField(max_length=15, choices=nivelacion_choices, blank=True, default='null')
+	nivelacion = models.CharField(max_length=30, choices=nivelacion_choices, blank=False, null=True)
 	aprueba = 'Aprueba'
 	reprueba = 'Reprueba'
-	ninguno_si = 'No Aplica'
 	resultado_choices = (
 		(aprueba, u'Aprueba'),
-		(reprueba, u'Reprueba'),
-		(ninguno_si, u'No Aplica'),
+		(reprueba, u'Reprueba')
 	)
-	resultadosNivelacion = models.CharField(max_length=30, choices=resultado_choices, blank=True, default='null')
-	semestreIngreso = models.IntegerField(blank=True, default='null')	
-	anioIngreso = models.IntegerField(blank=True, default='null')
+	resultados_nivelacion = models.CharField(max_length=30, choices=resultado_choices, blank=False, null=True)
+	semestre_ingreso = models.IntegerField(null=True)	
+	anio_ingreso = models.IntegerField(null=True)
 	estado_activo = 'Activo'
 	estado_inactivo = 'Inactivo'
 	estado_choices = (
 		(estado_activo, u'Activo'),
 		(estado_inactivo, u'Inactivo'),
 	)
-	estadoMatricula = models.CharField(max_length=9, choices=estado_choices, blank=True,default='null')
-	antecedentesAcademicos = models.IntegerField(blank=True, default='null')
-	antecedentesProfesionales = models.IntegerField(blank=True, default='null')
-	cartaRecomendacion = models.IntegerField(blank=True, default='null')
-	entrevista = models.CharField(max_length=30,blank=True, default='null')
-	puntaje = models.IntegerField(blank=True, default='null')
+	estado_matricula = models.CharField(max_length=20, choices=estado_choices, blank=False, null=True)
+	antecedentes_academicos = models.IntegerField(null=True)
+	antecedentes_profesionales = models.IntegerField(null=True)
+	carta_recomendacion = models.IntegerField(null=True)
+	entrevista = models.CharField(max_length=30, null=True)
+	puntaje = models.IntegerField(null=True)
 	aprueba_condicion = 'Aprueba'
 	reprueba_condicion = 'Reprueba'
-	ninguno_si = 'No Aplica'
 	resultadoCondicion_choices = (
 		(aprueba_condicion, u'Aprueba'),
-		(reprueba_condicion, u'Reprueba'),
-		(ninguno_si, u'No Aplica'),
+		(reprueba_condicion, u'Reprueba')
 	)
-	resultadosCondicion = models.CharField(max_length=30, choices=resultadoCondicion_choices, blank=True)
+	resultados_condicion = models.CharField(max_length=30, choices=resultadoCondicion_choices, blank=False)
 
-	def __str__(self):
-		cadena = self.nombre+' '+self.apellido_pat+' '+self.apellido_mat
-		return cadena 
-
+	def _str_(self):
+		cadena = self.nombre
+		return cadena
+	
 
 class Profesor(models.Model):
 	nombre = models.CharField(max_length=40)
@@ -105,19 +92,16 @@ class Profesor(models.Model):
 	profesion = models.CharField(max_length=50)
 	cursosImpartados = models.CharField(max_length=50)
 
-	def __str__(self):
-	    return "%s" % self.sexo
 
 	def __str__(self):
-	    return "%s" % self.nombre
-
+		cadena = self.nombre+''+self.apellido_pat+''+self.apellido_mat
+		return cadena
 
 class Document(models.Model):
-	filename = models.CharField(max_length=100)
+	filename = models.CharField(max_length=100, blank=True)
 	docfile = models.FileField(upload_to='documents/%Y/%m/%d')
 
 	def __str__(self):
 	    return "%s" % self.filename
-
 
 
